@@ -1,0 +1,8 @@
+# .gitignore
+*.swp
+*.bak
+result
+.cache/
+.secrets.nix
+*.backup
+
