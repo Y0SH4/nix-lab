@@ -1,0 +1,66 @@
+{ config, pkgs, inputs, username, ... }:
+
+{
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
+  home.stateVersion = "23.11";
+
+  home.packages = with pkgs; [
+    alacritty
+    fzf
+    ripgrep
+    fd
+    bat
+    eza
+    btop
+    tree
+    unzip
+
+    i3status
+    i3lock
+    rofi
+    feh
+    maim
+    xclip
+    brightnessctl
+    pamixer
+
+    chromium
+    pcmanfm
+
+    neovim
+    git
+    inxi
+  ];
+
+  programs = {
+    home-manager.enable = true;
+
+    git = {
+      enable = true;
+      userName = "Y0SH4";
+      userEmail = "yosa.agung13@gmail.com";
+      extraConfig = {
+        core.editor = "nvim";
+        pull.rebase = true;
+      };
+    };
+
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+
+      shellAliases = {
+        ll = "eza -la";
+        ls = "eza";
+        cat = "bat";
+        sysinfo = "inxi -Fxz";
+        nrs = "sudo nixos-rebuild switch --flake ~/nixos-config";
+        hibernate = "systemctl hibernate";
+        suspend = "systemctl suspend";
+      };
+    };
+  };
+}
